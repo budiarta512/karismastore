@@ -45,6 +45,20 @@ export class OrderController {
     }
   }
 
+  @Get('/user/:id')
+  async showOrderByUserId(@Res() response, @Param('id') id: string) {
+    try {
+      const data = await this.orderService.getByUserId(id);
+      return response.status(HttpStatus.OK).json({
+        statusCode: HttpStatus.OK,
+        message: 'Order found',
+        data: data,
+      });
+    } catch (error) {
+      return error;
+    }
+  }
+
   @Post()
   async store(@Res() response, @Body() request: CreateOrderDto) {
     try {

@@ -63,6 +63,24 @@ export class UserService {
     }
   }
 
+  // async logout(user: LoginUserDto): Promise<User> {
+  //   try {
+  //     // find user by phone
+  //     const loginUser = await this.userModel
+  //       .findOne({ phone: user.phone })
+  //       .exec();
+  //     // check password
+  //     const isMatch = await bcrypt.compare(user.password, loginUser.password);
+  //     // validate user
+  //     if (loginUser && isMatch) {
+  //       return loginUser;
+  //     }
+  //     throw new BadRequestException('Phone or password is wrong').getResponse();
+  //   } catch (error) {
+  //     throw new InternalServerErrorException(error).getResponse();
+  //   }
+  // }
+
   async verify(phone: string): Promise<User> {
     try {
       // find user by phone

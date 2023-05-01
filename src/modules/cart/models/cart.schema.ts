@@ -6,9 +6,9 @@ export type CartDocument = HydratedDocument<Cart>;
 @Schema({ timestamps: true })
 export class Cart {
   @Prop({ type: mongoose.Types.ObjectId, ref: 'Product' })
-  product: string;
+  product: mongoose.Types.ObjectId;
   @Prop({ type: mongoose.Types.ObjectId, ref: 'Order' })
-  order: string;
+  order: mongoose.Types.ObjectId;
   @Prop()
   qty: number;
   @Prop({ required: true })

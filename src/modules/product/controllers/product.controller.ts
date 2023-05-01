@@ -87,7 +87,7 @@ export class ProductController {
     }
   }
 
-  @Post('/update/:id')
+  @Post('/:id')
   @UseInterceptors(
     FileInterceptor('image', {
       storage: diskStorage({

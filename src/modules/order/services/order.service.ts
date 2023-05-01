@@ -26,7 +26,28 @@ export class OrderService {
 
   async getById(id: string): Promise<Order> {
     try {
-      const data = await this.orderModel.findById(id).populate('carts').exec();
+      const data = await this.orderModel
+        .findById(id)
+        .populate({
+          path: 'carts',
+          populate: 'product',
+        })
+        .exec();
+      return data;
+    } catch (error) {
+      throw new InternalServerErrorException().getResponse();
+    }
+  }
+
+  async getByUserId(id: string): Promise<Order> {
+    try {
+      const data = await this.orderModel
+        .findOne({ user: id })
+        .populate({
+          path: 'carts',
+          populate: 'product',
+        })
+        .exec();
       return data;
     } catch (error) {
       throw new InternalServerErrorException().getResponse();

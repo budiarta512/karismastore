@@ -9,6 +9,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CartModule } from './modules/cart/cart.module';
 import { OrderModule } from './modules/order/order.module';
+import { TransactionModule } from './modules/transaction/transaction.module';
 env.config();
 @Module({
   imports: [
@@ -21,6 +22,7 @@ env.config();
     ProductModule,
     CartModule,
     OrderModule,
+    TransactionModule,
   ],
   controllers: [AppController],
   providers: [AppService],

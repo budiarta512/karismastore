@@ -10,6 +10,7 @@ import { CreateCartDto } from '../dtos/create-cart.dto';
 import { Order } from 'src/modules/order/models/order.schema';
 import { UpdateCartDto } from '../dtos/update-cart.dto';
 import { Product } from 'src/modules/product/models/product.schema';
+import { exec } from 'child_process';
 
 @Injectable()
 export class CartService {
@@ -41,11 +42,26 @@ export class CartService {
     try {
       // check double product
       const product = await this.productModel.findById(request.product).exec();
-      if (product) {
-        throw new BadRequestException('Product already in cart').getResponse();
+      const order = await this.orderModel
+        .findById(request.order)
+        .populate('carts')
+        .exec();
+      // console.log('order carts', order.carts);
+      // console.log('product', product);
+      if (!order) {
+        throw new BadRequestException('Order id not found').getResponse();
+      } else if (!product) {
+        throw new BadRequestException('Product id not found').getResponse();
+      } else {
+        order.carts?.map((val) => {
+          if (val.product.toString() === product._id.toString()) {
+            console.log('Product already in cart');
+            throw new BadRequestException(
+              'Product already in cart',
+            ).getResponse();
+          }
+        });
       }
-
-      const order = await this.orderModel.findById(request.order).exec();
       const cart = new this.cartModel(request).save();
       order.carts.push(await cart), order.save();
       return cart;

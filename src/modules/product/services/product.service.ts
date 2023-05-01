@@ -64,6 +64,10 @@ export class ProductService {
           }
         });
       }
+      if (request.image === '') {
+        const prevProduct = await this.productModel.findById(id).exec();
+        request.image = prevProduct.image;
+      }
       const updateProduct = await this.productModel
         .findByIdAndUpdate(id, request)
         .exec();

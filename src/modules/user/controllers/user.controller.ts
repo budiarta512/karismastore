@@ -72,6 +72,28 @@ export class UserController {
     }
   }
 
+  // @Post('/login')
+  // async logout(@Res() response, @Body() request: LoginUserDto) {
+  //   try {
+  //     const service = await this.userService.login(request);
+  //     const payload = { name: service?.name, sub: service?.phone };
+  //     const token = await this.jwtService.signAsync(payload, {
+  //       secret: process.env.JWT_SECRET,
+  //     });
+  //     console.log(token);
+  //     return response.status(HttpStatus.OK).json({
+  //       statusCode: HttpStatus.OK,
+  //       message: 'Login user successfuly',
+  //       data: {
+  //         user: service,
+  //         access_token: token,
+  //       },
+  //     });
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // }
+
   @UseGuards(UserGuard)
   @Post('/verify')
   async verify(@Res() response, @Headers() header) {
