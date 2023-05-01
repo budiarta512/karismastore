@@ -8,15 +8,20 @@ import {
   Put,
   Delete,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
 import { OrderService } from '../services/order.service';
 import { CreateOrderDto } from '../dtos/create-order.dto';
 import { UpdateOrderDto } from '../dtos/update-order.dto';
+import { UserGuard } from 'src/modules/user/user.guard';
+import { RoleGuard } from 'src/modules/user/role.guard';
 
 @Controller('order')
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
+  @UseGuards(UserGuard)
+  @UseGuards(RoleGuard)
   @Get()
   async index(@Res() response) {
     try {
@@ -31,6 +36,7 @@ export class OrderController {
     }
   }
 
+  @UseGuards(UserGuard)
   @Get('/:id')
   async show(@Res() response, @Param('id') id: string) {
     try {
@@ -45,6 +51,7 @@ export class OrderController {
     }
   }
 
+  @UseGuards(UserGuard)
   @Get('/user/:id')
   async showOrderByUserId(@Res() response, @Param('id') id: string) {
     try {
@@ -59,6 +66,7 @@ export class OrderController {
     }
   }
 
+  @UseGuards(UserGuard)
   @Post()
   async store(@Res() response, @Body() request: CreateOrderDto) {
     try {
@@ -73,6 +81,7 @@ export class OrderController {
     }
   }
 
+  @UseGuards(UserGuard)
   @Put('/:id')
   async edit(
     @Res() response,
@@ -91,6 +100,7 @@ export class OrderController {
     }
   }
 
+  @UseGuards(UserGuard)
   @Delete('/:id')
   async destroy(@Res() response, @Param('id') id: string) {
     try {

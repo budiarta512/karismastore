@@ -8,15 +8,20 @@ import {
   Post,
   Put,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import { SupplierService } from '../services/supplier.service';
 import { CreateSupplierDto } from '../dtos/create-supplier.dto';
 import { UpdateSupplierDto } from '../dtos/update-supplier.dto';
+import { UserGuard } from 'src/modules/user/user.guard';
+import { RoleGuard } from 'src/modules/user/role.guard';
 
 @Controller('supplier')
 export class SupplierController {
   constructor(private readonly supplierService: SupplierService) {}
 
+  @UseGuards(UserGuard)
+  @UseGuards(RoleGuard)
   @Get()
   async index(@Res() response) {
     try {
@@ -31,6 +36,8 @@ export class SupplierController {
     }
   }
 
+  @UseGuards(UserGuard)
+  @UseGuards(RoleGuard)
   @Get('/:id')
   async show(@Res() response, @Param('id') id: string) {
     try {
@@ -45,6 +52,8 @@ export class SupplierController {
     }
   }
 
+  @UseGuards(UserGuard)
+  @UseGuards(RoleGuard)
   @Post()
   async store(@Res() response, @Body() request: CreateSupplierDto) {
     try {
@@ -59,6 +68,8 @@ export class SupplierController {
     }
   }
 
+  @UseGuards(UserGuard)
+  @UseGuards(RoleGuard)
   @Put('/:id')
   async edit(
     @Res() response,
@@ -77,6 +88,8 @@ export class SupplierController {
     }
   }
 
+  @UseGuards(UserGuard)
+  @UseGuards(RoleGuard)
   @Delete('/:id')
   async destroy(@Res() response, @Param('id') id: string) {
     try {

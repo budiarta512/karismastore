@@ -8,15 +8,20 @@ import {
   Param,
   Body,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
 import { CartService } from '../services/cart.service';
 import { CreateCartDto } from '../dtos/create-cart.dto';
 import { UpdateCartDto } from '../dtos/update-cart.dto';
+import { UserGuard } from 'src/modules/user/user.guard';
+import { RoleGuard } from 'src/modules/user/role.guard';
 
 @Controller('cart')
 export class CartController {
   constructor(private readonly cartServicec: CartService) {}
 
+  @UseGuards(UserGuard)
+  @UseGuards(RoleGuard)
   @Get()
   async index(@Res() response) {
     try {
@@ -31,6 +36,7 @@ export class CartController {
     }
   }
 
+  @UseGuards(UserGuard)
   @Get('/:id')
   async show(@Res() response, @Param('id') id: string) {
     try {
@@ -45,6 +51,7 @@ export class CartController {
     }
   }
 
+  @UseGuards(UserGuard)
   @Post()
   async store(@Res() response, @Body() request: CreateCartDto) {
     try {
@@ -59,6 +66,7 @@ export class CartController {
     }
   }
 
+  @UseGuards(UserGuard)
   @Put('/:id')
   async edit(
     @Res() response,
@@ -77,6 +85,7 @@ export class CartController {
     }
   }
 
+  @UseGuards(UserGuard)
   @Delete('/:id')
   async destroy(@Res() response, @Param('id') id: string) {
     try {

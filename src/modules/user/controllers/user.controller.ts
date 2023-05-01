@@ -118,6 +118,8 @@ export class UserController {
     }
   }
 
+  @UseGuards(UserGuard)
+  @UseGuards(RoleGuard)
   @Delete('/:id')
   async delete(@Res() response, @Param('id') id: string) {
     const deleteUser = await this.userService.delete(id);

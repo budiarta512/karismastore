@@ -11,16 +11,20 @@ import {
   Param,
   Put,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateProductDto } from '../dtos/create-product.dto';
 import { ProductService } from '../services/product.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { UpdateProductDto } from '../dtos/update-product.dto';
+import { UserGuard } from 'src/modules/user/user.guard';
+import { RoleGuard } from 'src/modules/user/role.guard';
 
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
+
   @Get()
   async index(@Res() response) {
     try {
@@ -49,6 +53,8 @@ export class ProductController {
     }
   }
 
+  @UseGuards(UserGuard)
+  @UseGuards(RoleGuard)
   @Post()
   @UseInterceptors(
     FileInterceptor('image', {
@@ -87,6 +93,8 @@ export class ProductController {
     }
   }
 
+  @UseGuards(UserGuard)
+  @UseGuards(RoleGuard)
   @Post('/:id')
   @UseInterceptors(
     FileInterceptor('image', {
@@ -131,6 +139,8 @@ export class ProductController {
     }
   }
 
+  @UseGuards(UserGuard)
+  @UseGuards(RoleGuard)
   @Delete(':id')
   async destroy(@Res() response, @Param('id') id: string) {
     try {
