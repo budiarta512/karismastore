@@ -15,6 +15,7 @@ import { CreateTransactionDto } from '../dtos/create-transaction.dto';
 import { UpdateTransactionDto } from '../dtos/update-transaction.dto';
 import { UserGuard } from 'src/modules/user/user.guard';
 import { RoleGuard } from 'src/modules/user/role.guard';
+import { UserService } from 'src/modules/user/services/user.service';
 
 @Controller('transaction')
 export class TransactionController {

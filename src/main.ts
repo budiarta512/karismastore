@@ -19,7 +19,13 @@ async function bootstrap() {
     type: VersioningType.URI,
     defaultVersion: '1',
   });
-  app.enableCors();
+  app.enableCors({
+    origin: [
+      'http://localhost:3000',
+      'https://karismastore-production.up.railway.app',
+    ],
+    credentials: true,
+  });
   await app.listen(8000);
 }
 bootstrap();

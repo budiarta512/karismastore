@@ -6,6 +6,7 @@ import { Cart, CartSchema } from '../cart/models/cart.schema';
 import { Product, ProductSchema } from '../product/models/product.schema';
 import { Order, OrderSchema } from './models/order.schema';
 import { User, UserSchema } from '../user/models/user.schema';
+import { UserService } from '../user/services/user.service';
 
 @Module({
   imports: [
@@ -14,7 +15,7 @@ import { User, UserSchema } from '../user/models/user.schema';
     MongooseModule.forFeature([{ name: Order.name, schema: OrderSchema }]),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],
-  providers: [OrderService],
+  providers: [OrderService, UserService],
   controllers: [OrderController],
 })
 export class OrderModule {}
