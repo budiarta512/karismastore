@@ -22,7 +22,7 @@ async function bootstrap() {
   app.enableCors({
     origin: [
       'http://localhost:3000',
-      'https://karismastore-production.up.railway.app',
+      'https://fekarismastore-production.up.railway.app',
     ],
     credentials: true,
   });
